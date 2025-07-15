@@ -210,6 +210,18 @@
 **역할**: 차량 번호판 및 차종 인식, OCR 수행<br>
 **기능**: YOLO + EasyOCR → 차종 분류 및 번호 추출 → DB 기록
 
+* **YOLOv8**으로 차량 이미지에서 번호판 객체(BBOX)를 탐지<br>
+  → 해당 BBOX 영역만 crop하여 OCR에 전달
+* EasyOCR 적용 전, **crop된 이미지에 이진화 전처리(binary thresholding)** 수행<br>
+  → 조명이나 그림자 등 주변 조건에 따라 번호판 인식률이 낮아지는 문제를 개선하기 위해 적용<br>
+  → `cv2.threshold()` 또는 `cv2.adaptiveThreshold()`를 사용하여 텍스트 대비 향상<br>
+  → OCR 실패율을 감소시켜 인식률 안정화
+* EasyOCR 결과에 대해 **정규표현식(`\d{2,3}[가-힣]\d{4}`)** 필터링을 적용하여 유효성 검사<br>
+  → 잘못된 인식 결과(예: 특수문자, 형식 오류 등) 제거
+* 차량 정보(차종 + 번호판)는 JSON 형태로 구성하여 `/detect/car_info` 토픽으로 발행<br>
+  → 예: `{"type": "EV", "car_plate": "123가4567"}`
+* 동일 정보를 InfluxDB에도 기록하여 추후 GUI에서 입출차 기록 확인 가능
+
 
 ### `detect_yolo.py`
 
@@ -224,19 +236,27 @@
 
 ### `detect_ps_front.py`
 
-**역할**: 주차 구역 사인 감지 결과 기반 정밀 좌표 마킹
+**역할**: 주차 구역 사인 감지 결과 기반 정밀 좌표 마킹<br>
 **기능**: 정밀 좌표 마킹 → `sc_follow_waypoints.py` 토픽 발행
-
 * `/detect/object_info` 토픽을 구독하여 탐지 결과 처리
 * `pixel_to_3d()`로 복원된 위치를 TF(`camera_link → map`) 기준으로 변환
 * `do_transform_point()`를 통해 map 좌표계로 변환하여 `/detect/object_map_pose` 발행
 * 로봇 중심 기준 `-0.5m` 오프셋을 적용해 실제 주차 위치 보정
 * **여러 TurtleBot 운용 시** `robot2` 네임스페이스 적용 → TF 충돌 방지 및 정확한 좌표 계산
 
+
 ### `sc_follow_waypoints.py`
 
-**역할**: SLAM 기반 자율이동<br>
+**역할**: SLAM 기반 자율주행 경로 실행 및 도킹 제어<br>
 **기능**: 주차공간 및 출차 위치까지 이동 → 회전 및 복귀 → Docking
+
+* **`nav2_simple_commander`의 `BasicNavigator` 액션 클라이언트**를 활용해 여러 개의 waypoint를 순차적으로 주행<br>
+  → `followWaypoints()`로 이동 지점 배열 처리
+* 각 waypoint 도착 여부는 `navigator.isTaskComplete()` 및 `getFeedback()`을 통해 실시간 확인
+* 입차 시, YOLO + Depth 기반 주차 사인 탐지 노드(`detect_ps_front.py`)에서 마킹된 좌표(`/detect/object_map_pose`)를 구독하여<br>
+  → **waypoint 경로 중간에 주차 위치를 동적으로 삽입**하여 정밀 주차 수행
+* 출차 시, DB에서 조회한 차량 위치로 이동 후 180도 회전 + 비동기 경고음 출력
+* 경고음 출력 로직은 threading 기반 별도 노드와 연동되어 주행 중단 없이 비동기로 재생됨
 
 ### `parking_gui.py`
 
