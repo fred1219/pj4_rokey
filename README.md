@@ -247,7 +247,11 @@
 * `pixel_to_3d()`로 복원된 위치를 TF(`camera_link → map`) 기준으로 변환
 * `do_transform_point()`를 통해 map 좌표계로 변환하여 `/detect/object_map_pose` 발행
 * 로봇 중심 기준 `-0.5m` 오프셋을 적용해 실제 주차 위치 보정
-* **여러 TurtleBot 운용 시** `robot2` 네임스페이스 적용 → TF 충돌 방지 및 정확한 좌표 계산
+* `detect_ps_front.launch.py` 실행을 통해 `/tf`, `/tf_static` 등의 주요 TF 토픽을 `remappings` 항목으로 `/robot2/tf` 등 **네임스페이스 기반으로 수동 리맵핑 처리**<br>
+  → `/tf` 기본 토픽이 `/robot1/tf`, `/robot2/tf` 형태로 **자동 리맵핑**되어 TF 충돌 방지
+
+
+---
 
 
 ### `sc_follow_waypoints.py`
