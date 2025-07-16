@@ -92,8 +92,13 @@
 | 🚗 **입차 (주차) 프로세스** | 🏁 **출차 프로세스** |
 | -------------------------- | -------------------- |
 | 1. 차량 진입 후 번호판 감지 (YOLO) <br>&emsp;&emsp;&emsp;&emsp;↓<br> 2. EasyOCR로 번호 추출 및 차종 분류 <br>&emsp;&emsp;&emsp;&emsp;↓<br> 3. GUI에서 ‘주차’ 버튼 클릭 <br>&emsp;&emsp;&emsp;&emsp;↓<br> 4. Navi 기반 waypoint 주행 시작 <br>&emsp;&emsp;&emsp;&emsp;↓<br> 5. 주행 중 YOLO+Depth로 주차 사인 탐지 <br>&emsp;&emsp;&emsp;&emsp;↓<br> 6. `BasicNavigator.getFeedback()`으로 waypoint 도착 후 정밀 위치 마킹 <br>&emsp;&emsp;&emsp;&emsp;↓<br> 7. **마킹 위치 이동 및 180도 회전 + 경고음 출력** <br>&emsp;&emsp;&emsp;&emsp;↓<br> 8. 복귀 이동 → Docking | 1. GUI에 출차 차량번호 입력 <br>&emsp;&emsp;&emsp;&emsp;↓<br> 2. DB에서 해당 차량 주차 위치 확인 <br>&emsp;&emsp;&emsp;&emsp;↓<br> 3. 출차 TurtleBot이 waypoint 주행 시작 <br>&emsp;&emsp;&emsp;&emsp;↓<br> 4. 차량 앞 도착 후 **180도 회전 + 경고음 출력** <br>&emsp;&emsp;&emsp;&emsp;↓<br> 5. 차량 출차 <br>&emsp;&emsp;&emsp;&emsp;↓<br> 6. 지정 위치 이동 → 복귀 → Docking |
+<img width="943" height="516" alt="image" src="https://github.com/user-attachments/assets/0ab3b9af-c52c-4feb-bd0d-48692394181f" />
 
-<img width="1122" height="476" alt="지능1 시퀀스다이어그램" src="https://github.com/user-attachments/assets/28c8b344-4c76-496e-8b67-d94a46832c2e" />
+<br>
+<br>
+<img width="197" height="37" alt="image" src="https://github.com/user-attachments/assets/6adb943d-c413-450a-bbfd-3c2be4fcd61a" />
+
+<img width="940" height="399" alt="image" src="https://github.com/user-attachments/assets/7c4c96cb-3792-4512-ae43-79c7bd892b52" />
 
 
 ---
