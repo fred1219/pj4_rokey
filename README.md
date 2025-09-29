@@ -140,6 +140,7 @@
 * **YOLOv8** → 번호판 객체 탐지 및 차종 분류 (EV, 일반, 장애인차량)
 * **EasyOCR** → 번호판 영역 내 문자 인식 및 유효성 검사
 * 차량 정보: `{"type": "disabled", "car_plate": "123가4568"}` 형태로 DB 저장
+<img width="700" height="250" alt="image" src="https://github.com/user-attachments/assets/77982d80-1964-49c3-9606-dfffafe54fe5" />
 
 #### ⚙️ 구현 내용
 
