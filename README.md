@@ -9,6 +9,12 @@
 * 🛠 **사용 기술**: ROS 2, YOLOv8, EasyOCR, OAK-D Pro, TurtleBot4, RPLiDAR, InfluxDB, PyQt
 * ✅ **주요 기능**: 차량 번호판 인식 및 분류, 정밀 주차/출차, 실시간 GUI 및 DB 연동, 압축 이미지 기반 경량화
 
+### 🎥 시연 영상
+
+[![시연 영상 보기]()
+
+📄 [PDF 소개 자료](AutoPark.pdf)  
+
 ---
 
 ## 📑 프로젝트 개요
