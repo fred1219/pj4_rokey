@@ -11,7 +11,7 @@
 
 ### 🎥 시연 영상
 
-[![시연 영상 보기]()
+[![시연 영상 보기](https://youtu.be/CiJqKnJTLl8)
 
 📄 [PDF 소개 자료](AutoPark.pdf)  
 
