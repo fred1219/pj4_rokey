@@ -204,6 +204,7 @@
 ## 4. 핵심 코드 구현
 
 ### `raspi_monitor.py`
+<img width="800" height="350" alt="image" src="https://github.com/user-attachments/assets/7671f7ab-8127-4ea9-bc92-03611343befa" />
 
 **역할**: 시스템 부하(CPU, 메모리, 네트워크 등) 측정 및 로그 기록<br>
 **기능**: 이 도구를 통해 압축 이미지 전송 등 **경량화 실험의 수치 기반 근거 확보**<br>
