@@ -156,6 +156,8 @@
 * **OAK-D** Depth 정보를 이용한 중심 거리 추정
 * **TF 좌표 변환** (`do_transform_point`)을 통해 로봇 좌표계 기준 정밀 주차
 * **Namespace 기반 TF 리매핑** → TF 충돌 방지
+<img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/19cab8a3-b9de-47db-aa2b-aacfd85daa29" />
+
 
 #### ⚙️ 구현 내용
 
